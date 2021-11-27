@@ -1,1 +1,75 @@
-<p>project-edit works!</p>
+<div class="container" style="max-width: 100%;">  
+    <h2>Create</h2>
+    <hr/>
+    <form [formGroup]="form" >
+        <div class="form-group row">        
+            <label for="number" class="col-sm-3 required col-form-label">Project Number</label>
+            <div class="col-sm-5">
+                <input type="text" formControlName="name" class="form-control" placeholder="Project number">
+              </div>
+        </div>
+        <div class="form-group row">        
+            <label for="name" class="col-sm-3 required col-form-label">Project Name</label>
+            <div class="col-sm-9">
+                <input type="text" formControlName="number" class="form-control" placeholder="Project name">
+              </div>
+        </div>
+        <div class="form-group row">        
+            <label for="customer" class="col-sm-3 required col-form-label">Customer</label>
+            <div class="col-sm-9">
+                <input type="text" formControlName="customer" class="form-control" placeholder="Customer">
+              </div>
+        </div>
+        <div class="form-group row">        
+            <label for="customer" class="col-sm-3 required col-form-label">Group</label>
+            <div class="col-sm-5">
+                <select class="form-control" name="group">
+                    <option value="0">NEW</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">        
+            <label for="member" class="col-sm-3 required col-form-label">Member</label>
+            <div class="col-sm-9">
+                <ng-multiselect-dropdown
+                    [placeholder]="'Member'"
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList"
+                    formControlName = 'member'
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+        <div class="form-group row">        
+            <label for="status" class="col-sm-3 required col-form-label">Status</label>
+            <div class="col-sm-5">
+                <select class="form-control" formControlName="status" name="status">
+                    <option *ngFor="let stt of status" [value]="stt">{{ stt|statusPipe }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">        
+            <label for="startDate" class="col-sm-3 required col-form-label">Start date</label>
+            <div class="col-sm-3">
+                <input type="date" class="form-control" [value]="startDate"> <!--Chưa có formControlName-->
+            </div>
+            <label for="endDate" class="col-sm-2 col-form-label">End date</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" [value]="endDate"> <!--Chưa có formControlName-->
+            </div>
+        </div>
+        <div class="form-group row" >
+            <div class="col-sm-3 col-sm-offset-3">
+                <button class="btn btn-default btn-block col-sm-2" (click)="onCancel()">
+                    Cancel
+                </button>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="col-sm-2 btn btn-primary btn-block">
+                    {{ editMode ? 'Edit' : 'Create' }}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

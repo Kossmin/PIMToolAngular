@@ -11,11 +11,14 @@ export class ProjectListComponent implements OnInit {
 
   
   projectStatus = ['new', 'inp', 'pla', 'fin'];
-  projects: Project[];
+  projects;
   constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
-    this.projects = this.projectService.getProjects();
+    this.projectService.getProjects().subscribe((data)=>{
+      this.projects = data;
+    });
+    console.log(this.projects);
   }
 
   onResetForm(form): void {
@@ -28,5 +31,9 @@ export class ProjectListComponent implements OnInit {
   onSearch(searchString: string, status: string): void {
     console.log(searchString);
     console.log(status);
+  }
+
+  toggleTrashCan(index: number){
+    this.projects[index].isSelected = !this.projects[index].isSelected;
   }
 }

@@ -42,12 +42,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let project of projects">
+                <tr *ngFor="let project of projects; let i = index">
                     <td>
-                        <input type="checkbox" name="projectId" [value]="project.projectNumber" appCheckbox>
+                        <input type="checkbox" name="projectId" [value]="project.projectNumber" (change)="toggleTrashCan(i)">
                     </td>
                     <td>
-                        {{ project.projectNumber }}
+                        <a [routerLink]="['/', project.id]">{{ project.projectNumber }}</a>                        
                     </td>
                     <td>
                         {{ project.projectName }}
@@ -62,8 +62,8 @@
                         {{ project.startDate|date }}
                     </td>
                     <td>
-                        <a appToggleTrashCan>
-                            <i class="fas fa-trash-alt" style="color: orangered"></i>
+                        <a *ngIf="project.isSelected">
+                            <i class="fas fa-trash-alt" style="color: orangered" ></i>
                         </a>
                     </td>
                 </tr>
